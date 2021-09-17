@@ -4,9 +4,7 @@
 require("file.php");
 session_start();
 $_SESSION["name"] = "ALae";
-
 ?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +28,6 @@ $_SESSION["name"] = "ALae";
             /* -hauteur/2 */
 
         }
-
         #btn {
 
             width: 26rem;
