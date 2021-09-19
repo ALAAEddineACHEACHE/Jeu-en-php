@@ -59,16 +59,33 @@
     session_start();
 
     $number = null;
+    $numbertwo = null;
+    $numberthree = null;
     $error = null;
     $success = null;
     $adeviner = null;
+    $adevinertwo = null;
+    $adevinerthree = null;
 
     if (empty($_SESSION["number"])) {
-        $_SESSION["number"] = $adeviner = rand(0 - 10);
+        $_SESSION["number"] = $adeviner = rand(0, 10);
     } else {
         $adeviner = $_SESSION["number"];
     }
+    if (empty($_SESSION["numbertwo"])) {
+        $_SESSION["numbertwo"] = $adevinertwo = rand(10, 100);
+    } else {
+        $adevinertwo = $_SESSION["numbertwo"];
+    }
+    if (empty($_SESSION["numberthree"])) {
+        $_SESSION["numberthree"] = $adevinerthree = rand(100, 1000);
+    } else {
+        $adevinerthree = $_SESSION["numberthree"];
+    }
     echo $adeviner;
+    echo "\n $adevinertwo";
+    echo " \n$adevinerthree";
+
     if (isset($_GET["number"])) {
         if ($_GET["number"] < $adeviner) {
             $error = "le nombre est inférieur au nombre deviné";
@@ -76,9 +93,31 @@
             $error  = "le nombre est encore supérieur au nombre deviné";
         } else {
             $success = "T'as deviné le nombre";
+            echo "\tt'as gagné un point";
             session_destroy();
         }
     }
+    if (isset($_GET["numbertwo"])) {
+        if ($_GET["numbertwo"] < $adevinertwo) {
+            $error = "le nombre est inférieur au nombre deviné";
+        } elseif ($_GET["numbertwo"] > $adevinertwo) {
+            $error  = "le nombre est encore supérieur au nombre deviné";
+        } else {
+            $success = "T'as deviné le nombre";
+            echo "\nT'as gagné 2 points";
+        }
+    }
+    if (isset($_GET["numberthree"])) {
+        if ($_GET["numberthree"] < $adevinerthree) {
+            $error = "le nombre est inférieur au nombre deviné";
+        } elseif ($_GET["numberthree"] > $adevinerthree) {
+            $error  = "le nombre est encore supérieur au nombre deviné";
+        } else {
+            $success = "T'as deviné le nombre";
+            echo "\nT'as gagné 5 points";
+        }
+    }
+
 
 
 
@@ -90,6 +129,15 @@
                     <label for="number" class="form-label">Number</label>
                     <input name="number" placeholder="entrer un nombre" type="number" class="form-control">
                 </div>
+                <div class="mb-3">
+                    <label for="numbertwo" class="form-label">Number</label>
+                    <input name="numbertwo" placeholder="entrer un nombre" type="number" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="numberthree" class="form-label">Number</label>
+                    <input name="numberthree" placeholder="entrer un nombre" type="number" class="form-control">
+                </div>
+
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-primary" id="btn" type="submit">Deviner</button>
                 </div>
@@ -108,6 +156,7 @@
                         Copyright &copy; <?php echo date("Y") ?>
                 </span>
     </form>
+
 
 
 
