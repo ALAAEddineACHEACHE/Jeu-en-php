@@ -41,6 +41,14 @@
 
         }
 
+        .alert-success,
+        .alert-danger {
+            width: 29rem;
+            margin: 7px;
+            margin-left: -4px;
+
+        }
+
         span {
             margin-left: -46px;
             width: 50rem;
@@ -57,6 +65,8 @@
 </head>
 
 <body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <?php
     session_start();
 
@@ -83,30 +93,52 @@
     if (isset($_GET["numbertwo"])) {
         if ($_GET["numbertwo"] < $adevinertwo) {
             $error = "le nombre est inférieur au nombre deviné";
+    ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choice!'
+
+                })
+            </script>
+        <?php
         } elseif ($_GET["numbertwo"] > $adevinertwo) {
             $error  = "le nombre est encore supérieur au nombre deviné";
+        ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choice!'
+
+                })
+            </script>
+        <?php
         } else {
             $success = "T'as deviné le nombre";
             echo "\nT'as gagné 2 points";
+        ?>
+            <script>
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Tu as gagné 2 points',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            </script>
+    <?php
         }
     }
-
-
-
-
-
     ?>
     <form id="monForm" action="" method="GET" class="row g-3">
         <div class="container">
             <div class="row">
-
-
                 <div class="mb-3">
                     <label for="numbertwo" class="form-label"></label>
                     <input id="input" name="numbertwo" placeholder="entrer un nombre entre 10 et 100" type="number" class="form-control">
                 </div>
-
-
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-primary" id="btn" type="submit">Deviner</button>
                 </div>
@@ -117,7 +149,7 @@
                         </div>
                     <?php elseif (isset($success)) : ?>
                         <div>
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success" style="width:29rem; margin:7px;margin-left:-4px;" role="alert">
                                 <?= $success; ?>
                             </div>
                         <?php endif ?>
@@ -125,13 +157,6 @@
 
                 </span>
     </form>
-
-
-
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
