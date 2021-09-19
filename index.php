@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require("file.php");
-session_start();
-$_SESSION["name"] = "ALae";
+// require("file.php");
+// session_start();
+// $_SESSION["name"] = "ALae";
+
+
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +15,7 @@ $_SESSION["name"] = "ALae";
     <style>
         body {
             margin: 0px;
+            background-color: green;
         }
 
         #monForm {
@@ -28,6 +32,7 @@ $_SESSION["name"] = "ALae";
             /* -hauteur/2 */
 
         }
+
         #btn {
 
             width: 26rem;
@@ -51,9 +56,19 @@ $_SESSION["name"] = "ALae";
 
 <body>
     <?php
-    $adeviner = 10;
+    session_start();
+
+    $number = null;
     $error = null;
     $success = null;
+    $adeviner = null;
+
+    if (empty($_SESSION["number"])) {
+        $_SESSION["number"] = $adeviner = rand(0 - 10);
+    } else {
+        $adeviner = $_SESSION["number"];
+    }
+    echo $adeviner;
     if (isset($_GET["number"])) {
         if ($_GET["number"] < $adeviner) {
             $error = "le nombre est inférieur au nombre deviné";
@@ -61,8 +76,12 @@ $_SESSION["name"] = "ALae";
             $error  = "le nombre est encore supérieur au nombre deviné";
         } else {
             $success = "T'as deviné le nombre";
+            session_destroy();
         }
     }
+
+
+
     ?>
     <form id="monForm" action="" method="GET" class="row g-3">
         <div class="container">
@@ -74,7 +93,7 @@ $_SESSION["name"] = "ALae";
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-primary" id="btn" type="submit">Deviner</button>
                 </div>
-                <span id="passwordHelpInline" class="form-text">
+                <span class="form-text">
                     <?php if (isset($error)) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?= $error ?>
@@ -86,9 +105,9 @@ $_SESSION["name"] = "ALae";
                             </div>
                         <?php endif ?>
                         <!-- : au lieu des accolades ca le remplace -->
+                        Copyright &copy; <?php echo date("Y") ?>
                 </span>
     </form>
-
 
 
 
