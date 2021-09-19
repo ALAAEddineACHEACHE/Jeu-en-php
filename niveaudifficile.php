@@ -49,12 +49,21 @@
             width: 25rem;
             margin-left: -54px;
         }
+
+        .alert-success,
+        .alert-danger {
+            width: 29rem;
+            margin: 7px;
+            margin-left: -4px;
+
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>
 
 <body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
     session_start();
     $numberthree = null;
@@ -75,17 +84,44 @@
     if (isset($_GET["numberthree"])) {
         if ($_GET["numberthree"] < $adevinerthree) {
             $error = "le nombre est inférieur au nombre deviné";
+    ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choice!'
+
+                })
+            </script>
+        <?php
         } elseif ($_GET["numberthree"] > $adevinerthree) {
             $error  = "le nombre est encore supérieur au nombre deviné";
+        ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choice!'
+
+                })
+            </script>
+        <?php
         } else {
             $success = "T'as deviné le nombre";
             echo "\nT'as gagné 5 points";
+        ?>
+            <script>
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Tu as gagné 5 points',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            </script>
+    <?php
         }
     }
-
-
-
-
     ?>
     <form id="monForm" action="" method="GET" class="row g-3">
         <div class="container">
@@ -98,7 +134,7 @@
                 </div>
 
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary" id="btn" type="submit">Deviner</button>
+                    <button style="text-align: center;" class="btn btn-primary" id="btn" type="submit">Deviner</button>
                 </div>
                 <span class="form-text">
                     <?php if (isset($error)) : ?>
@@ -107,7 +143,7 @@
                         </div>
                     <?php elseif (isset($success)) : ?>
                         <div>
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success" style="width:27rem; margin:7px;margin-left:-4px;" role="alert">
                                 <?= $success; ?>
                             </div>
                         <?php endif ?>
