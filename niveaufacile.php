@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    Swal.fire('Any fool can use a computer')
+</script>
 <?php
 // require("file.php");
 // session_start();
@@ -51,12 +54,21 @@
             margin-left: -54px;
             height: 3rem;
         }
+
+        .alert-success,
+        .alert-danger {
+            width: 29rem;
+            margin: 7px;
+            margin-left: -4px;
+
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>
 
 <body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
     session_start();
     $number = null;
@@ -77,11 +89,42 @@
     if (isset($_GET["number"])) {
         if ($_GET["number"] < $adeviner) {
             $error = "le nombre est inférieur au nombre deviné";
+    ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choice!'
+
+                })
+            </script>
+        <?php
         } elseif ($_GET["number"] > $adeviner) {
             $error  = "le nombre est encore supérieur au nombre deviné";
+        ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Choices!',
+                })
+            </script>
+        <?php
         } else {
             $success = "T'as deviné le nombre";
             echo "\tt'as gagné un point";
+        ?>
+            <script>
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Tu as gagné 1 point',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            </script>
+    <?php
+
             session_destroy();
         }
     }
@@ -105,7 +148,7 @@
                 </div>
 
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button name="click" class="btn btn-primary" id="btn" type="submit">Deviner</button>
+                    <button style="text-align: center;" name="click" class="btn btn-primary" id="btn" type="submit">Deviner</button>
                 </div>
                 <span class="form-text">
                     <?php if (isset($error)) : ?>
@@ -114,7 +157,7 @@
                         </div>
                     <?php elseif (isset($success)) : ?>
                         <div>
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success" style="width:29rem; margin:7px;margin-left:-4px;" role="alert">
                                 <?= $success; ?>
                             </div>
                         <?php endif ?>
